@@ -7,7 +7,39 @@
     <artifactId>cassie-composite</artifactId>
     <inceptionYear>2013</inceptionYear>
     <packaging>jar</packaging>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>cassie-composite</name>
+    <description>A composite codec for Twitter's Cassie library</description>
+    <url>https://github.com/TheWeatherChannel/cassie-composite</url>
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:TheWeatherChannel/cassie-composite.git</connection>
+        <developerConnection>scm:git:git@github.com:TheWeatherChannel/cassie-composite.git</developerConnection>
+        <url>git@github.com:TheWeatherChannel/cassie-composite.git</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>rstrickland</id>
+            <name>Robbie Strickland</name>
+            <email>robbie.strickland@weather.com</email>
+        </developer>
+    </developers>
 
     <dependencies>
         <dependency>
@@ -38,7 +70,7 @@
     </dependencies>
 
     <build>
-        <finalName>Cassandra</finalName>
+        <finalName>cassie-composite</finalName>
         <sourceDirectory>src/main/scala</sourceDirectory>
 
         <pluginManagement>
@@ -48,41 +80,10 @@
                     <artifactId>maven-scala-plugin</artifactId>
                     <version>${scala-plugin.version}</version>
                 </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${mavencompiler-plugin.version}</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${surefire-plugin.version}</version>
-                </plugin>
             </plugins>
         </pluginManagement>
 
         <plugins>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>${assembly-plugin.version}</version>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <plugin>
                 <groupId>org.scala-tools</groupId>
                 <artifactId>maven-scala-plugin</artifactId>
@@ -104,56 +105,24 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
+                <artifactId>maven-gpg-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>compile</phase>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
                         <goals>
-                            <goal>compile</goal>
+                            <goal>sign</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
-
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <includes>
-                        <include>**/*UnitTest.*</include>
-                    </includes>
-                </configuration>
-            </plugin>
         </plugins>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh-external</artifactId>
-                <version>1.0-beta-6</version>
-            </extension>
-        </extensions>
     </build>
 
     <properties>
-        <!-- for cobertura coverage, see surefire configuration -->
-        <skip.tests>false</skip.tests>
-
-        <!-- For Ops, disables tests in surefire-plugin -->
-        <is.ops.build>false</is.ops.build>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <mavencompiler-plugin.version>2.5.1</mavencompiler-plugin.version>
-        <mavendeploy-plugin.version>2.7</mavendeploy-plugin.version>
-        <assembly-plugin.version>2.3</assembly-plugin.version>
-        <surefire-plugin.version>2.12.1</surefire-plugin.version>
-        <cobertura-plugin.version>2.5.1</cobertura-plugin.version>
-
         <scala.version>2.9.2</scala.version>
         <scala.library.version>2.9.2</scala.library.version>
         <scala-plugin.version>2.15.2</scala-plugin.version>
