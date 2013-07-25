@@ -1,4 +1,6 @@
-This codec allows for operations on composite columns, which is currently not supported in Cassie.  Example usage:
+This codec allows for operations on composite columns, which is currently not supported in Cassie.  
+
+Example usage:
 
 ```scala
 val cluster = new Cluster("localhost", 9160)
@@ -29,4 +31,14 @@ def printCol(c: Column[Composite, String]) = {
   val c2 = colName._2.value
   println(c1 + ":" + c2  + " = " + c.value)
 }
+```
+
+Maven:
+
+```xml
+<dependency>
+  <groupId>com.weather</groupId>
+  <artifactId>cassie-composite</artifactId>
+  <version>1.0</version>
+</dependency>
 ```
